@@ -1,7 +1,7 @@
 import sqlite3
 import os
 
-
+"cass"
 class LeyesDB:
     def __init__(self, nombre_db):
         self.conn = sqlite3.connect(nombre_db)
@@ -193,5 +193,3 @@ class ProgramaLeyes:
 
 programa = ProgramaLeyes()
 programa.ejecutar()
-
-psapdaps
