@@ -194,4 +194,3 @@ class ProgramaLeyes:
 programa = ProgramaLeyes()
 programa.ejecutar()
 
-psapdaps
