@@ -39,7 +39,6 @@ class LeyesDB:
         self.conn.execute(query_palabra_clave)
         self.conn.commit()
 
-        # Insertar jurisdicciones si no existen
         self.insertar_jurisdiccion("1", "Nacional")
         self.insertar_jurisdiccion("2", "Provincial")
 
