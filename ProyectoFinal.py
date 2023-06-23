@@ -62,6 +62,15 @@ class LeyesDB:
         VALUES (?, ?, ?, ?, ?, ?, ?)
         """
         cursor = self.conn.cursor()
+        
+        if jurisdiccion_id == "Nacional":
+            organo_legislativo = "Congreso de la Nacion"
+        elif jurisdiccion_id == "Provincial":
+            organo_legislativo = "Legislatura de Cordoba"
+        else:
+            print("Jurisdicción inválida. La normativa no será agregada.")
+            return
+
         cursor.execute(query, (tipo_normativa, nro_normativa, fecha, descripcion, categoria, organo_legislativo, jurisdiccion_id))
         self.conn.commit()
 
@@ -126,12 +135,60 @@ class ProgramaLeyes:
             print("Base de datos existente. Conectado a la base de datos.")
 
     def agregar_normativa(self):
-        tipo_normativa = input("Tipo de normativa: ")
-        nro_normativa = input("Número de normativa: ")
-        fecha = input("Fecha: ")
+        while True:
+            tipo_normativa = input("Tipo de normativa (1: Ley, 2: Resolución, 3: Decreto): ")
+            if tipo_normativa == "1":
+                tipo_normativa = "Ley"
+                break
+            elif tipo_normativa == "2":
+                tipo_normativa = "Resolución"
+                break
+            elif tipo_normativa == "3":
+                tipo_normativa = "Decreto"
+                break
+            else:
+                print("Opción inválida. Intente nuevamente.")
+        nro_normativa = input("Número de normativa(Sin punto): ")
+        fecha = input("Fecha (dd/mm/yyyy): ")
         descripcion = input("Descripción: ")
-        categoria = input("Categoría: ")
-        organo_legislativo = input("Órgano legislativo: ")
+        while True:
+            print("Categorías disponibles:")
+            print("1. Laboral")
+            print("2. Penal")
+            print("3. Civil")
+            print("4. Comercial")
+            print("5. Familia y Sucesiones")
+            print("6. Agrario y Ambiental")
+            print("7. Minería")
+            print("8. Derecho informático")
+            categoria_opcion = input("Ingrese el número correspondiente a la categoría de la normativa: ")
+            
+            if categoria_opcion == "1":
+                categoria = "Laboral"
+                break
+            elif categoria_opcion == "2":
+                categoria = "Penal"
+                break
+            elif categoria_opcion == "3":
+                categoria = "Civil"
+                break
+            elif categoria_opcion == "4":
+                categoria = "Comercial"
+                break
+            elif categoria_opcion == "5":
+                categoria = "Familia y Sucesiones"
+                break
+            elif categoria_opcion == "6":
+                categoria = "Agrario y Ambiental"
+                break
+            elif categoria_opcion == "7":
+                categoria = "Minería"
+                break
+            elif categoria_opcion == "8":
+                categoria = "Derecho informático"
+                break
+            else:
+                print("Opción inválida. Intente nuevamente.")
         jurisdiccion_nombre = input("Jurisdicción (Nacional o Provincial): ")
         palabras_clave = input("Palabras clave (separadas por comas): ").split(",")
 
@@ -144,6 +201,11 @@ class ProgramaLeyes:
         if jurisdiccion_id is None:
             print("Jurisdicción inválida. La normativa no será agregada.")
             return
+        
+        if jurisdiccion_id == "Nacional":
+            organo_legislativo = "Congreso de la Nacion"
+        elif jurisdiccion_id == "Provincial":
+            organo_legislativo = "Legislatura de Cordoba"
 
         self.db.insertar_normativa(tipo_normativa, nro_normativa, fecha, descripcion, categoria, organo_legislativo, jurisdiccion_id, palabras_clave)
         print("Normativa agregada correctamente.")
@@ -160,7 +222,7 @@ class ProgramaLeyes:
             print("No se encontraron normativas con las palabras clave proporcionadas.")
 
     def buscar_normativa_por_numero(self):
-        numero_normativa = input("Ingrese el número de normativa: ")
+        numero_normativa = input("Ingrese el número de normativa (Sin punto): ")
         normativas = self.db.buscar_normativa_por_numero(numero_normativa)
 
         if normativas:
@@ -197,7 +259,7 @@ programa.inicializar_db()
 
 
 while True:
-    print("Poder JUDICIAL de la Provincia de Córdoba")
+    print("Poder Judicial de la Provincia de Córdoba")
     print("\n********** MENÚ **********")
     print("1. Agregar normativa")
     print("2. Buscar normativas por palabras clave")
