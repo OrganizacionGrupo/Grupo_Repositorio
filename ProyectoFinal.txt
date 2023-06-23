@@ -1,4 +1,5 @@
 El trabajo fue hecho de manera grupal, en este se creo la base de datos directamente desde python. Hemos usado sqlite 3.
+Para que funcione correctamente leyes.db y ProyectoFinal.py deben estar en la misma carpeta.
 Dentro del programa hay dos clases, las cuales ambas poseen varios metodos. Esta implementado el prototipo basico crud, el cual se puede utilizar desde el menu, en el cual también se puede buscar por numero de normativa y tambien por palabra clave.
 Dentro de la base de datos que esta en el main hemos agregado las normativas sugeridas (Ley 27.555, Ley 20.744 y Ley 7642). Estas han sido agregadas desde el archivo ProyectoFinal.py, para terminar de verificar su funcionalidad.
-El programa se ejecuta hasta que se selecciona la opcion de salir, lo cual hace un break.
+El programa se ejecuta hasta que se selecciona la opcion de salir.
